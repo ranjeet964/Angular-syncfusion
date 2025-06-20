@@ -1,0 +1,266 @@
+{
+            "table_cell_df": [
+                [
+                {
+                        "OriginalValue": "",
+                        "text": "",
+                        "bbox": [1, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "",
+                        "text": "",
+                        "bbox": [0, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2023",
+                        "text": "2023",
+                        "bbox": [3, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2024",
+                        "text": "2024",
+                        "bbox": [4, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2024",
+                        "text": "2024",
+                        "bbox": [4, 0, 0, 0],
+                        "is_empty": true
+                    }
+
+                ],
+                [
+                {
+                        "OriginalValue": "Revenue",
+                        "text": "Revenue",
+                        "bbox": [1, 1, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+
+                        "OriginalValue": "",
+                        "text": "",
+                        "bbox": [0, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "6000",
+                        "text": "6000",
+                        "bbox": [3, 1, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "7000",
+                        "text": "7000",
+                        "bbox": [4, 1, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2024",
+                        "text": "2024",
+                        "bbox": [4, 0, 0, 0],
+                        "is_empty": true
+                    }
+                ],
+                [
+                        {
+                            "OriginalValue": "Income",
+                            "text": "Income",
+                            "bbox": [1, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "",
+                            "text": "",
+                            "bbox": [0, 0, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "16000",
+                            "text": "16000",
+                            "bbox": [3, 2, 1, 1],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "17000",
+                            "text": "17000",
+                            "bbox": [4, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "2024",
+                            "text": "2024",
+                            "bbox": [4, 0, 0, 0],
+                            "is_empty": true
+                        }
+                ],
+                [
+                        {
+                            "OriginalValue": "Income",
+                            "text": "Income",
+                            "bbox": [1, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "",
+                            "text": "",
+                            "bbox": [0, 0, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "16000",
+                            "text": "16000",
+                            "bbox": [3, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "17000",
+                            "text": "17000",
+                            "bbox": [4, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "2024",
+                            "text": "2024",
+                            "bbox": [4, 0, 0, 0],
+                            "is_empty": true
+                        }
+                ],
+                [
+                {
+                        "OriginalValue": "",
+                        "text": "",
+                        "bbox": [1, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "",
+                        "text": "",
+                        "bbox": [0, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2023",
+                        "text": "2023",
+                        "bbox": [3, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2024",
+                        "text": "2024",
+                        "bbox": [4, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2024",
+                        "text": "2024",
+                        "bbox": [4, 0, 0, 0],
+                        "is_empty": true
+                    }
+
+                ],
+                [
+                {
+                        "OriginalValue": "Revenue",
+                        "text": "Revenue",
+                        "bbox": [1, 1, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+
+                        "OriginalValue": "",
+                        "text": "",
+                        "bbox": [0, 0, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "6000",
+                        "text": "6000",
+                        "bbox": [3, 1, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "7000",
+                        "text": "7000",
+                        "bbox": [4, 1, 0, 0],
+                        "is_empty": true
+                    },
+                    {
+                        "OriginalValue": "2024",
+                        "text": "2024",
+                        "bbox": [4, 0, 0, 0],
+                        "is_empty": true
+                    }
+                ],
+                [
+                        {
+                            "OriginalValue": "Income",
+                            "text": "Income",
+                            "bbox": [1, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "",
+                            "text": "",
+                            "bbox": [0, 0, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "16000",
+                            "text": "16000",
+                            "bbox": [3, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "17000",
+                            "text": "17000",
+                            "bbox": [4, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "2024",
+                            "text": "2024",
+                            "bbox": [4, 0, 0, 0],
+                            "is_empty": true
+                        }
+                ],
+                [
+                        {
+                            "OriginalValue": "Income",
+                            "text": "Income",
+                            "bbox": [1, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "",
+                            "text": "",
+                            "bbox": [0, 0, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "16000",
+                            "text": "16000",
+                            "bbox": [3, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "17000",
+                            "text": "17000",
+                            "bbox": [4, 2, 0, 0],
+                            "is_empty": true
+                        },
+                        {
+                            "OriginalValue": "2024",
+                            "text": "2024",
+                            "bbox": [4, 0, 0, 0],
+                            "is_empty": true
+                        }
+                ]
+
+
+            ]
+        }

@@ -1,0 +1,460 @@
+{
+    "table_cell_df": [
+        [
+            {
+                "OriginalValue": "uRZH",
+                "text": "uRZH",
+                "bbox": [
+                    0,
+                    0,
+                    1,
+                    1
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "75985",
+                "text": "75985",
+                "bbox": [
+                    1,
+                    0,
+                    2,
+                    1
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "OQLU",
+                "text": "OQLU",
+                "bbox": [
+                    2,
+                    0,
+                    3,
+                    1
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "QyJW",
+                "text": "QyJW",
+                "bbox": [
+                    3,
+                    0,
+                    4,
+                    1
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "98704",
+                "text": "98704",
+                "bbox": [
+                    4,
+                    0,
+                    5,
+                    1
+                ],
+                "is_empty": false
+            }
+        ],
+        [
+            {
+                "OriginalValue": "33133",
+                "text": "33133",
+                "bbox": [
+                    0,
+                    1,
+                    1,
+                    2
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "43904",
+                "text": "43904",
+                "bbox": [
+                    1,
+                    1,
+                    2,
+                    2
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "42207",
+                "text": "42207",
+                "bbox": [
+                    2,
+                    1,
+                    3,
+                    2
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "s56Q",
+                "text": "s56Q",
+                "bbox": [
+                    3,
+                    1,
+                    4,
+                    2
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "85228",
+                "text": "85228",
+                "bbox": [
+                    4,
+                    1,
+                    5,
+                    2
+                ],
+                "is_empty": false
+            }
+        ],
+        [
+            {
+                "OriginalValue": "94175",
+                "text": "94175",
+                "bbox": [
+                    0,
+                    2,
+                    1,
+                    3
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "5883",
+                "text": "5883",
+                "bbox": [
+                    1,
+                    2,
+                    2,
+                    3
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "15750",
+                "text": "15750",
+                "bbox": [
+                    2,
+                    2,
+                    3,
+                    3
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "65265",
+                "text": "65265",
+                "bbox": [
+                    3,
+                    2,
+                    4,
+                    3
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "nBUW",
+                "text": "nBUW",
+                "bbox": [
+                    4,
+                    2,
+                    5,
+                    3
+                ],
+                "is_empty": false
+            }
+        ],
+        [
+            {
+                "OriginalValue": "hfUE",
+                "text": "hfUE",
+                "bbox": [
+                    0,
+                    3,
+                    1,
+                    4
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "kNwt",
+                "text": "kNwt",
+                "bbox": [
+                    1,
+                    3,
+                    2,
+                    4
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "5aOV",
+                "text": "5aOV",
+                "bbox": [
+                    2,
+                    3,
+                    3,
+                    4
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "65663",
+                "text": "65663",
+                "bbox": [
+                    3,
+                    3,
+                    4,
+                    4
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "87278",
+                "text": "87278",
+                "bbox": [
+                    4,
+                    3,
+                    5,
+                    4
+                ],
+                "is_empty": false
+            }
+        ],
+        [
+            {
+                "OriginalValue": "75997",
+                "text": "75997",
+                "bbox": [
+                    0,
+                    4,
+                    1,
+                    5
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "opSl",
+                "text": "opSl",
+                "bbox": [
+                    1,
+                    4,
+                    2,
+                    5
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "ymk1",
+                "text": "ymk1",
+                "bbox": [
+                    2,
+                    4,
+                    3,
+                    5
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "gdQe",
+                "text": "gdQe",
+                "bbox": [
+                    3,
+                    4,
+                    4,
+                    5
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "7ipK",
+                "text": "7ipK",
+                "bbox": [
+                    4,
+                    4,
+                    5,
+                    5
+                ],
+                "is_empty": true
+            }
+        ],
+        [
+            {
+                "OriginalValue": "7FcN",
+                "text": "7FcN",
+                "bbox": [
+                    0,
+                    5,
+                    1,
+                    6
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "40477",
+                "text": "40477",
+                "bbox": [
+                    1,
+                    5,
+                    2,
+                    6
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "JcH7",
+                "text": "JcH7",
+                "bbox": [
+                    2,
+                    5,
+                    3,
+                    6
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "4245",
+                "text": "4245",
+                "bbox": [
+                    3,
+                    5,
+                    4,
+                    6
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "RxN9",
+                "text": "RxN9",
+                "bbox": [
+                    4,
+                    5,
+                    5,
+                    6
+                ],
+                "is_empty": true
+            }
+        ],
+        [
+            {
+                "OriginalValue": "2fhT",
+                "text": "2fhT",
+                "bbox": [
+                    0,
+                    6,
+                    1,
+                    7
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "GOYk",
+                "text": "GOYk",
+                "bbox": [
+                    1,
+                    6,
+                    2,
+                    7
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "Ca0r",
+                "text": "Ca0r",
+                "bbox": [
+                    2,
+                    6,
+                    3,
+                    7
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "7934",
+                "text": "7934",
+                "bbox": [
+                    3,
+                    6,
+                    4,
+                    7
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "81194",
+                "text": "81194",
+                "bbox": [
+                    4,
+                    6,
+                    5,
+                    7
+                ],
+                "is_empty": false
+            }
+        ],
+        [
+            {
+                "OriginalValue": "27985",
+                "text": "27985",
+                "bbox": [
+                    0,
+                    7,
+                    1,
+                    8
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "9CNh",
+                "text": "9CNh",
+                "bbox": [
+                    1,
+                    7,
+                    2,
+                    8
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "k5mz",
+                "text": "k5mz",
+                "bbox": [
+                    2,
+                    7,
+                    3,
+                    8
+                ],
+                "is_empty": false
+            },
+            {
+                "OriginalValue": "MLpJ",
+                "text": "MLpJ",
+                "bbox": [
+                    3,
+                    7,
+                    4,
+                    8
+                ],
+                "is_empty": true
+            },
+            {
+                "OriginalValue": "92735",
+                "text": "92735",
+                "bbox": [
+                    4,
+                    7,
+                    5,
+                    8
+                ],
+                "is_empty": true
+            }
+        ]
+    ]
+}

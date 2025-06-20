@@ -1,0 +1,223 @@
+/* app.component.css */
+
+.app-container {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background: #f5f5f5;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.header h2 {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.window-controls {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+}
+
+.control-btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.split-btn {
+  background: #4CAF50;
+  color: white;
+}
+
+.split-btn:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.combine-btn {
+  background: #2196F3;
+  color: white;
+}
+
+.combine-btn:hover {
+  background: #1976D2;
+  transform: translateY(-1px);
+}
+
+.mode-indicator {
+  padding: 6px 12px;
+  background: rgba(255,255,255,0.2);
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* Content containers */
+.content-container {
+  flex: 1;
+  padding: 20px;
+  overflow: hidden;
+}
+
+/* Combined view */
+.combined-view {
+  display: flex;
+  gap: 20px;
+}
+
+.combined-view .pdf-section,
+.combined-view .excel-section {
+  flex: 1;
+  min-width: 0;
+}
+
+/* Single view layouts */
+.pdf-only-view,
+.excel-only-view {
+  display: flex;
+  flex-direction: column;
+}
+
+.pdf-section-full,
+.excel-section-full {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* Section styling */
+.pdf-section h3,
+.excel-section h3,
+.pdf-section-full h3,
+.excel-section-full h3 {
+  margin: 0 0 15px 0;
+  color: #333;
+  font-size: 18px;
+  font-weight: 600;
+  text-align: center;
+  padding: 10px;
+  background: white;
+  border-radius: 6px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+/* Enhanced component styling */
+ejs-pdfviewer,
+ejs-spreadsheet {
+  border-radius: 8px !important;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1) !important;
+  overflow: hidden;
+}
+
+/* Status bar */
+.status-bar {
+  padding: 10px 20px;
+  background: #333;
+  color: #ccc;
+  font-size: 12px;
+  text-align: center;
+}
+
+.status-text {
+  font-family: 'Courier New', monospace;
+}
+
+/* Responsive design */
+@media (max-width: 1200px) {
+  .combined-view {
+    flex-direction: column;
+  }
+
+  .combined-view .pdf-section,
+  .combined-view .excel-section {
+    height: 400px;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    text-align: center;
+  }
+
+  .window-controls {
+    justify-content: center;
+  }
+
+  .content-container {
+    padding: 10px;
+  }
+
+  .combined-view .pdf-section,
+  .combined-view .excel-section {
+    height: 300px;
+  }
+
+  ejs-pdfviewer,
+  ejs-spreadsheet {
+    height: 300px !important;
+  }
+}
+
+/* Animation for smooth transitions */
+.content-container {
+  animation: fadeIn 0.5s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hover effects */
+.excel-section,
+.excel-section-full {
+  cursor: pointer;
+}
+
+.excel-section:hover h3,
+.excel-section-full:hover h3 {
+  background: #e3f2fd;
+  transition: background 0.3s ease;
+}
+
+/* Custom scrollbar for better aesthetics */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}

@@ -1,0 +1,113 @@
+<!-- app.component.html -->
+<div class="app-container">
+  <!-- Header with window controls -->
+  <div class="header">
+    <h2>{{ windowTitle }}</h2>
+
+    <div class="window-controls" *ngIf="currentMode === 'combined'">
+      <button
+        class="control-btn split-btn"
+        (click)="splitWindows()"
+        title="Split into separate windows"
+      >
+        📋➜🖼️ Split Windows
+      </button>
+    </div>
+
+    <div class="window-controls" *ngIf="currentMode === 'pdf-only'">
+      <button
+        class="control-btn combine-btn"
+        (click)="combineWindows()"
+        title="Combine windows back together"
+      >
+        🔗 Combine Windows
+      </button>
+      <span class="mode-indicator">PDF Mode - Excel data in separate tab</span>
+    </div>
+
+    <div class="window-controls" *ngIf="currentMode === 'excel-only'">
+      <span class="mode-indicator">Excel Mode - PDF in separate tab</span>
+    </div>
+  </div>
+
+  <!-- Combined view -->
+  <div
+    class="content-container combined-view"
+    *ngIf="currentMode === 'combined'"
+  >
+    <div class="pdf-section">
+      <h3>PDF Viewer</h3>
+      <ejs-pdfviewer
+        #pdfViewer
+        id="pdfViewer"
+        [documentPath]="document"
+        [resourceUrl]="resourceUrl"
+        (pageChange)="onPageChange($event)"
+        style="height: 600px; border: 1px solid #ccc"
+      >
+      </ejs-pdfviewer>
+    </div>
+
+    <div class="excel-section">
+      <h3>Business Data (Click any row to navigate PDF)</h3>
+      <ejs-spreadsheet
+        #excelSheet
+        id="excelSheet"
+        (created)="onSpreadsheetCreated()"
+        (select)="onCellSelect($event)"
+        (contextMenuBeforeOpen)="contextMenuCustom($event)"
+        (contextMenuItemSelect)="onCustomContextClick($event)"
+        (actionBegin)="onBeforeAction($event)"
+        (cellSave)="onCellSave($event)"
+        style="height: 600px; border: 1px solid #ccc"
+      >
+      </ejs-spreadsheet>
+    </div>
+  </div>
+
+  <!-- PDF-only view -->
+  <div
+    class="content-container pdf-only-view"
+    *ngIf="currentMode === 'pdf-only'"
+  >
+    <div class="pdf-section-full">
+      <h3>PDF Viewer</h3>
+      <ejs-pdfviewer
+        #pdfViewer
+        id="pdfViewer"
+        [documentPath]="document"
+        [resourceUrl]="resourceUrl"
+        (pageChange)="onPageChange($event)"
+        style="height: 700px; width: 100%; border: 1px solid #ccc"
+      >
+      </ejs-pdfviewer>
+    </div>
+  </div>
+
+  <!-- Excel-only view -->
+  <div
+    class="content-container excel-only-view"
+    *ngIf="currentMode === 'excel-only'"
+  >
+    <div class="excel-section-full">
+      <h3>Business Data (Click any row to navigate PDF in other tab)</h3>
+      <ejs-spreadsheet
+        #excelSheet
+        id="excelSheet"
+        (created)="onSpreadsheetCreated()"
+        (contextMenuClick)="onCustomContextClick($event)"
+        (select)="onCellSelect($event)"
+        style="height: 700px; width: 100%; border: 1px solid #ccc"
+      >
+      </ejs-spreadsheet>
+    </div>
+  </div>
+
+  <!-- Status bar -->
+  <div class="status-bar">
+    <span class="status-text">
+      Mode: {{ currentMode | titlecase }} | Sync:
+      {{ isUpdatingFromBroadcast ? "Receiving..." : "Ready" }}
+    </span>
+  </div>
+</div>

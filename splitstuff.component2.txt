@@ -1,0 +1,530 @@
+// src/app/app.component.ts
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet, ActivatedRoute, Router, RouterModule } from '@angular/router';
+
+import {
+  PdfViewerModule,
+  LinkAnnotationService,
+  BookmarkViewService,
+  MagnificationService,
+  ThumbnailViewService,
+  ToolbarService,
+  NavigationService,
+  TextSearchService,
+  TextSelectionService,
+  PrintService,
+  FormDesignerService,
+  FormFieldsService,
+  AnnotationService,
+  PdfViewerComponent
+} from '@syncfusion/ej2-angular-pdfviewer';
+
+import {
+  SpreadsheetModule,
+  SpreadsheetComponent,
+  SheetModel,
+  SelectEventArgs
+} from '@syncfusion/ej2-angular-spreadsheet';
+
+import { BroadcastService } from './src/app/services/broadcast-service.service';
+
+// Define interfaces for better type safety
+export interface PageData {
+  ID: number;
+  Name: string;
+  Revenue: number; // in million USD
+  Profit: number;  // in million USD
+  FiscalYear: number;
+  PageNumber: number; // Add page number to track which PDF page this data corresponds to
+  Region: string;
+  Quarter: string;
+  GrowthRate: number;
+}
+
+interface UsedRangeInfo {
+  address?: string;
+}
+
+type ViewMode = 'combined' | 'pdf-only' | 'excel-only';
+
+@Component({
+  selector: 'app-root',
+  standalone: true,
+  imports: [
+    CommonModule,
+    PdfViewerModule,
+    SpreadsheetModule,
+    RouterModule
+  ],
+  providers: [
+    LinkAnnotationService,
+    BookmarkViewService,
+    MagnificationService,
+    ThumbnailViewService,
+    ToolbarService,
+    NavigationService,
+    TextSearchService,
+    TextSelectionService,
+    PrintService,
+    FormDesignerService,
+    FormFieldsService,
+    AnnotationService,
+  ],
+  templateUrl: './splitstuff.component.html',
+  styleUrls: ['./splitstuff.component.css'],
+})
+export class SplitStuffComponent implements OnInit, OnDestroy {
+  @ViewChild('pdfViewer') pdfViewer!: PdfViewerComponent;
+  @ViewChild('excelSheet') excelSheet!: SpreadsheetComponent;
+
+  public document: string = '';
+  public resourceUrl: string = '';
+
+  // Window management
+  public currentMode: ViewMode = 'combined';
+  private excelWindow: Window | null = null;
+  public isUpdatingFromBroadcast = false;
+
+public pageDataMap: Record<number, PageData[]> = {
+  1: [
+    { ID: 1, Name: 'Productivity and Business Processes', Revenue: 63400, Profit: 25200, FiscalYear: 2023, PageNumber: 1, Region: 'North America', Quarter: 'Q1', GrowthRate: 8.5 },
+    { ID: 11, Name: 'Dynamics 365', Revenue: 15400, Profit: 7200, FiscalYear: 2023, PageNumber: 1, Region: 'Europe', Quarter: 'Q2', GrowthRate: 11.2 }
+  ],
+  2: [
+    { ID: 2, Name: 'Intelligent Cloud', Revenue: 91800, Profit: 40500, FiscalYear: 2023, PageNumber: 2, Region: 'Asia', Quarter: 'Q2', GrowthRate: 14.1 },
+    { ID: 12, Name: 'Azure Infrastructure', Revenue: 61200, Profit: 28000, FiscalYear: 2023, PageNumber: 2, Region: 'North America', Quarter: 'Q3', GrowthRate: 10.8 }
+  ],
+  3: [
+    { ID: 3, Name: 'More Personal Computing', Revenue: 54600, Profit: 18700, FiscalYear: 2023, PageNumber: 3, Region: 'Latin America', Quarter: 'Q1', GrowthRate: 5.3 },
+    { ID: 13, Name: 'Edge Devices', Revenue: 20400, Profit: 7200, FiscalYear: 2023, PageNumber: 3, Region: 'Europe', Quarter: 'Q4', GrowthRate: 7.9 }
+  ],
+  4: [
+    { ID: 4, Name: 'Office Products and Cloud Services', Revenue: 39500, Profit: 18000, FiscalYear: 2023, PageNumber: 4, Region: 'Asia', Quarter: 'Q1', GrowthRate: 9.6 },
+    { ID: 14, Name: 'Microsoft 365', Revenue: 42000, Profit: 19800, FiscalYear: 2023, PageNumber: 4, Region: 'Global', Quarter: 'Q2', GrowthRate: 12.3 }
+  ],
+  5: [
+    { ID: 5, Name: 'Server Products and Cloud Services', Revenue: 76300, Profit: 34000, FiscalYear: 2023, PageNumber: 5, Region: 'North America', Quarter: 'Q3', GrowthRate: 13.4 },
+    { ID: 15, Name: 'SQL Server', Revenue: 30500, Profit: 14100, FiscalYear: 2023, PageNumber: 5, Region: 'Europe', Quarter: 'Q4', GrowthRate: 6.7 }
+  ],
+  6: [
+    { ID: 6, Name: 'Windows', Revenue: 22200, Profit: 9500, FiscalYear: 2023, PageNumber: 6, Region: 'Global', Quarter: 'Q2', GrowthRate: 3.2 },
+    { ID: 16, Name: 'Windows OEM', Revenue: 17400, Profit: 7100, FiscalYear: 2023, PageNumber: 6, Region: 'Asia', Quarter: 'Q4', GrowthRate: 4.5 }
+  ],
+  7: [
+    { ID: 7, Name: 'Gaming (Xbox)', Revenue: 15900, Profit: 3200, FiscalYear: 2023, PageNumber: 7, Region: 'North America', Quarter: 'Q1', GrowthRate: 9.8 },
+    { ID: 17, Name: 'Game Pass', Revenue: 9800, Profit: 2100, FiscalYear: 2023, PageNumber: 7, Region: 'Europe', Quarter: 'Q3', GrowthRate: 11.1 }
+  ],
+  8: [
+    { ID: 8, Name: 'Search and News Advertising', Revenue: 12000, Profit: 4900, FiscalYear: 2023, PageNumber: 8, Region: 'Global', Quarter: 'Q2', GrowthRate: 6.4 },
+    { ID: 18, Name: 'Bing Ads', Revenue: 8600, Profit: 3400, FiscalYear: 2023, PageNumber: 8, Region: 'Asia', Quarter: 'Q4', GrowthRate: 5.1 }
+  ],
+  9: [
+    { ID: 9, Name: 'LinkedIn', Revenue: 15200, Profit: 6100, FiscalYear: 2023, PageNumber: 9, Region: 'North America', Quarter: 'Q3', GrowthRate: 13.7 },
+    { ID: 19, Name: 'LinkedIn Talent Solutions', Revenue: 9400, Profit: 3600, FiscalYear: 2023, PageNumber: 9, Region: 'Europe', Quarter: 'Q4', GrowthRate: 10.5 }
+  ],
+  10: [
+    { ID: 10, Name: 'Devices (Surface)', Revenue: 8700, Profit: 1500, FiscalYear: 2023, PageNumber: 10, Region: 'Global', Quarter: 'Q1', GrowthRate: 2.6 },
+    { ID: 20, Name: 'Accessories', Revenue: 3300, Profit: 800, FiscalYear: 2023, PageNumber: 10, Region: 'Asia', Quarter: 'Q3', GrowthRate: 3.8 }
+  ]
+};
+
+
+  // Combined data for display in spreadsheet
+  private allData: PageData[] = [];
+  private excelRowToDataMap: Record<number, PageData> = {};
+
+  constructor(
+    private broadcastService: BroadcastService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) { }
+
+  ngOnInit(): void {
+    // this.service = 'https://services.syncfusion.com/angular/production/api/pdfviewer';
+    // this.document = 'https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf';
+
+    //  this.service = 'http://localhost:3000/api/pdfviewer';
+    // this.document = 'sample.pdf';
+
+    this.document = "https://cdn.syncfusion.com/content/pdf/pdf-succinctly.pdf"
+    this.resourceUrl = "https://cdn.syncfusion.com/ej2/26.2.11/dist/ej2-pdfviewer-lib"
+
+    // Combine all page data into one array
+    this.allData = Object.values(this.pageDataMap).flat();
+
+    // Check URL parameters to determine view mode
+    this.route.queryParams.subscribe(params => {
+      if (params['mode'] === 'excel') {
+        this.currentMode = 'excel-only';
+      } else if (params['mode'] === 'pdf') {
+        this.currentMode = 'pdf-only';
+      } else {
+        this.currentMode = 'combined';
+      }
+    });
+
+
+
+    // Listen for broadcast messages
+    this.broadcastService.onMessage((msg) => {
+      this.handleBroadcastMessage(msg);
+    });
+
+    // Listen for window close events
+    window.addEventListener('beforeunload', () => {
+      this.broadcastService.sendMessage({
+        type: 'WINDOW_CLOSING',
+        mode: this.currentMode
+      });
+    });
+  }
+
+  ngOnDestroy(): void {
+    if (this.excelWindow && !this.excelWindow.closed) {
+      this.excelWindow.close();
+    }
+  }
+
+  /**
+   * Handle incoming broadcast messages
+   */
+  private handleBroadcastMessage(msg: any): void {
+    console.log('msggg', msg)
+    if (!msg) return;
+
+    this.isUpdatingFromBroadcast = true;
+
+
+
+    switch (msg.type) {
+      case 'PDF_NAVIGATE':
+        console.log(typeof msg.page === 'number' )
+        if (typeof msg.page === 'number') {
+          console.log(`Received PDF navigation to page ${msg.page}`);
+          this.scrollToAndHighlightExcelRow(msg.page)
+        }
+        break;
+
+      case 'EXCEL_ROW_SELECTED':
+        if (typeof msg.page === 'number' && this.pdfViewer) {
+          console.log(`Received Excel selection, navigating PDF to page ${msg.page}`);
+          this.pdfViewer.navigation.goToPage(msg.page);
+        }
+        break;
+
+      case 'WINDOW_CLOSING':
+        if (msg.mode === 'excel-only') {
+          this.excelWindow = null;
+          // Optionally switch back to combined mode
+          this.currentMode = 'combined';
+        }
+        this.router.navigate([], {
+          queryParams: { mode: null }, // ❗️Set to null to remove
+          queryParamsHandling: 'merge' // ⬅️ Merge with existing params except 'mode'
+        });
+        break;
+
+      case 'PING':
+        // Respond to ping to confirm this window is active
+        this.broadcastService.sendMessage({
+          type: 'PONG',
+          mode: this.currentMode,
+          timestamp: Date.now()
+        });
+        break;
+    }
+
+    this.isUpdatingFromBroadcast = false;
+  }
+
+  /**
+   * Split into separate windows - PDF stays, Excel opens in new tab
+   */
+  splitWindows(): void {
+    if (this.excelWindow && !this.excelWindow.closed) {
+      this.excelWindow.focus();
+      return;
+    }
+
+    // Get current URL and modify it for Excel mode
+    const currentUrl = new URL(window.location.href);
+    currentUrl.searchParams.set('mode', 'excel');
+
+    // Open Excel in new window
+    this.excelWindow = window.open(
+      currentUrl.toString(),
+      'excel-window',
+      'width=1200,height=800,scrollbars=yes,resizable=yes'
+    );
+
+    if (this.excelWindow) {
+      // Switch current window to PDF-only mode
+      this.router.navigate([
+
+      ], {
+        queryParams: { mode: 'pdf' },
+        queryParamsHandling: 'merge'
+      });
+
+      // Send initialization message to new window
+      setTimeout(() => {
+        this.broadcastService.sendMessage({
+          type: 'WINDOW_SPLIT',
+          pdfWindow: true,
+          excelWindow: false
+        });
+      }, 1000);
+    }
+  }
+
+  /**
+   * Combine windows back together
+   */
+  combineWindows(): void {
+    if (this.excelWindow && !this.excelWindow.closed) {
+      this.excelWindow.close();
+      this.excelWindow = null;
+    }
+
+    // Switch back to combined mode
+    this.router.navigate([], {
+      queryParams: { mode:  null   }, // ❗️Set to null to remove
+      queryParamsHandling: 'merge' // ⬅️ Merge with existing params except 'mode'
+    });
+
+    this.broadcastService.sendMessage({
+      type: 'WINDOWS_COMBINED'
+    });
+  }
+
+  /**
+   * Event handler for when the spreadsheet is created and ready
+   */
+  onSpreadsheetCreated(): void {
+    if (this.currentMode === 'excel-only' || this.currentMode === 'combined') {
+      console.log('Spreadsheet created, loading data...');
+      this.loadAllDataToSpreadsheet();
+    }
+  }
+
+  /**
+   * Loads all data from all pages into the spreadsheet at once
+   */
+  private loadAllDataToSpreadsheet(): void {
+    if (!this.excelSheet || !this.pageDataMap) {
+      console.warn('Spreadsheet not ready or no data available');
+      return;
+    }
+
+    this.excelRowToDataMap = {}; // reset map
+
+    console.log('Loading grouped data to spreadsheet...');
+
+    let currentRow = 1; // Start at the top of the sheet
+
+    for (const page in this.pageDataMap) {
+      const dataGroup = this.pageDataMap[page];
+      const headers = Object.keys(dataGroup[0]) as (keyof PageData)[];
+
+      // Add header row
+      headers.forEach((header, colIndex) => {
+        const cellAddress = `${String.fromCharCode(65 + colIndex)}${currentRow}`;
+        this.excelSheet.updateCell({
+          value: String(header).toUpperCase(),
+          style: {
+            fontWeight: 'bold',
+            backgroundColor: '#dceeff',
+            border: '1px solid #333'
+          }
+        }, cellAddress);
+      });
+
+      currentRow++;
+
+      // Add data rows with border styling
+      dataGroup.forEach((rowData) => {
+        headers.forEach((key, colIndex) => {
+          const cellAddress = `${String.fromCharCode(65 + colIndex)}${currentRow}`;
+          this.excelSheet.updateCell({
+            value: String(rowData[key]),
+            style: {
+              border: '1px solid #999'
+            }
+          }, cellAddress);
+        });
+
+        // Map this excel row to the data object for navigation
+        this.excelRowToDataMap[currentRow] = rowData;
+
+        currentRow++;
+      });
+
+      // Add blank rows before next group
+      currentRow += 2;
+    }
+
+    // Auto-fit columns
+    setTimeout(() => {
+      this.excelSheet.autoFit('A:Z');
+    }, 100);
+
+    console.log('Grouped data loaded successfully');
+  }
+
+  /**
+   * Handles cell selection in the spreadsheet
+   */
+  onCellSelect(args: SelectEventArgs): void {
+    if (!args.range || this.isUpdatingFromBroadcast) return;
+
+    const [startCell] = args.range.split(':');
+    const rowNumber = parseInt(startCell.replace(/[A-Z]/g, ''), 10);
+
+    // Look up data for this row
+    const selectedData = this.excelRowToDataMap[rowNumber];
+
+    console.log(selectedData, args, 'selectt')
+
+    if (selectedData) {
+      const targetPage = selectedData.PageNumber;
+
+      console.log(`Excel row selected: Navigating to PDF page ${targetPage} for: ${selectedData.Name}`);
+
+      // If we're in combined mode, navigate local PDF
+      if (this.currentMode === 'combined' && this.pdfViewer) {
+        this.pdfViewer.navigation.goToPage(targetPage);
+      }
+
+      // Always broadcast for cross-window sync
+      this.broadcastService.sendMessage({
+        type: 'EXCEL_ROW_SELECTED',
+        page: targetPage,
+        selectedData: selectedData,
+        timestamp: Date.now()
+      });
+    }
+  }
+
+  private scrollToAndHighlightExcelRow(pageNumber: number): void {
+    console.log('hehe')
+  if (!this.excelSheet || !this.pageDataMap[pageNumber]) return;
+
+  const targetData = this.pageDataMap[pageNumber];
+  const allRows = Object.entries(this.excelRowToDataMap);
+
+  for (const [rowStr, data] of allRows) {
+    const rowIndex = parseInt(rowStr, 10);
+    const shouldHighlight = targetData.some(d => d.ID === data.ID);
+
+    // Set background color for target rows, reset others
+    // this.excelSheet.setRowStyle(
+    //   { backgroundColor: shouldHighlight ? '#fff4c4' : '#ffffff' },
+    //   rowIndex
+    // );
+
+    // Scroll to first matching row
+    if (shouldHighlight) {
+      this.excelSheet.selectRange(`A${rowIndex}`);
+      this.excelSheet.goTo(`A${rowIndex}`);
+      break; // scroll to first relevant row only
+    }
+  }
+}
+
+// private scrollToAndHighlightExcelRow(pageNumber: number): void {
+//   if (!this.excelSheet) return;
+
+//   // Find the row number from the pageDataMap
+//   const dataGroup = this.pageDataMap[pageNumber];
+//   if (!dataGroup || dataGroup.length === 0) return;
+
+//   const rowIndex = this.findRowIndexForPage(pageNumber); // 👇 You must implement this
+
+//   if (rowIndex === -1) return;
+
+//   // Assuming the number of columns is known (e.g., 6 for ID, Name, Revenue, Profit, FiscalYear, PageNumber)
+//   const columnCount = 6;
+
+//   for (let col = 0; col < columnCount; col++) {
+//     const colLetter = String.fromCharCode(65 + col); // A, B, C...
+//     const cellAddress = `${colLetter}${rowIndex}`;
+//     this.excelSheet.updateCell({
+//       style: {
+//         backgroundColor: '#ffeb3b', // Yellow highlight
+//         fontWeight: 'bold'
+//       }
+//     }, cellAddress);
+//   }
+
+//   // Scroll to the row (optional)
+//   this.excelSheet.goTo(`A${rowIndex}`);
+// }
+private findRowIndexForPage(pageNumber: number): number {
+  let row = 1;
+  for (const page in this.pageDataMap) {
+    const group = this.pageDataMap[parseInt(page)];
+    if (!group) continue;
+
+    // 1 header + group.length rows
+    if (parseInt(page) === pageNumber) {
+      return row + 1; // skip header
+    }
+
+    row += group.length + 1;
+  }
+
+  return -1;
+}
+
+
+
+  /**
+   * Handle PDF page changes
+   */
+  onPageChange(args: { currentPageNumber: number }): void {
+
+
+     if (this.currentMode === 'combined' && this.pdfViewer) {
+        this.scrollToAndHighlightExcelRow(args.currentPageNumber);
+      }
+
+    if (this.isUpdatingFromBroadcast) return;
+
+    console.log(`PDF page changed to: ${args.currentPageNumber}`);
+
+
+
+    // Broadcast PDF page change
+    this.broadcastService.sendMessage({
+      type: 'PDF_NAVIGATE',
+      page: args.currentPageNumber,
+      timestamp: Date.now()
+    });
+  }
+
+  /**
+   * Check if current mode should show PDF
+   */
+  get showPdf(): boolean {
+    return this.currentMode === 'combined' || this.currentMode === 'pdf-only';
+  }
+
+  /**
+   * Check if current mode should show Excel
+   */
+  get showExcel(): boolean {
+    return this.currentMode === 'combined' || this.currentMode === 'excel-only';
+  }
+
+  /**
+   * Get title for current window
+   */
+  get windowTitle(): string {
+    switch (this.currentMode) {
+      case 'pdf-only': return 'PDF Viewer';
+      case 'excel-only': return 'Excel Data';
+      default: return 'PDF & Excel Viewer';
+    }
+  }
+}
